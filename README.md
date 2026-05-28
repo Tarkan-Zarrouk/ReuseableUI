@@ -1,9 +1,5 @@
-# ClickGui
+# Reuseable UI
+I haven't been able to find a public repository of just a clickgui that people can use in their own projects, so I decided to make one myself. This is a work in progress, and I will be adding more features and improving the code as I go along.
 
-## Setup
-
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+## UI As of 2027/05/27
+![UI](/global%20assets/currentUI.png)
