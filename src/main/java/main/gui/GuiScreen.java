@@ -1,6 +1,7 @@
 package main.gui;
 
 import main.gui.components.Categories;
+import main.gui.components.ModulePanel;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -18,6 +19,7 @@ public class GuiScreen extends Screen {
         super.render(graphics, mouseX, mouseY, partialTicks);
         
         Categories.drawCategories(graphics);
+        ModulePanel.drawModulePanel(graphics);
     }
     @Override
     public boolean isPauseScreen() {

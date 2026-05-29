@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import main.command.Command;
+import main.feature.ModuleMain;
+import main.handler.ModuleHandler;
 
 public class ClickGui implements ModInitializer, ClientModInitializer {
 	public static final String MOD_ID = "clickgui";
@@ -22,7 +24,8 @@ public class ClickGui implements ModInitializer, ClientModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		Command.init();
-
+		ModuleHandler.init();
+		ModuleMain.registerModules();
 		LOGGER.info("Hello Fabric world!");
 	}
 

@@ -15,4 +15,7 @@ public class RenderUtil {
         graphics.fill(xPos + 1, yPos + 1, xPos + width, yPos + height, colour);
         graphics.renderOutline(xPos, yPos, width, height, 0xFFFFFFFF);
     }
+    public static int getStringWidth(String name) {
+        return Minecraft.getInstance().font.width(name);
+    }
 }
