@@ -21,6 +21,40 @@ public class ModulePanel {
         drawModules(graphics);
     }
     private static void drawModules(GuiGraphics graphics) {
+        Map<ModuleMain.Categories, Integer> xPositionCalc = xPositionCalcHelper();
+        Map<ModuleMain.Categories, Integer> moduleHeight = moduleHeightCalcHelper();
+        for (ModuleMain module : modules) {
+            ModuleMain.Categories cat = module.getCategory();
+            int x = xPositionCalc.get(cat);
+            int w = categoryRectWidths.get(cat);
+            int h = categoryRectHeights.get(cat);
+            int y = moduleHeight.get(cat);
+
+            RenderUtil.drawRect(graphics, x, y, w, h, 0xFF540d54);
+
+            drawTextHelper(graphics, module, x, y, w);
+
+            moduleHeight.put(cat, y + h);
+        }
+    }
+    private static final void drawTextHelper(GuiGraphics graphics, ModuleMain module, int x, int y, int w) {
+        int centeredString = x + (w / 2) - (RenderUtil.getStringWidth(module.getName()) / 2);
+        if(module.getName().length() >= 10) {
+            String shortenedName = module.getName().substring(0, 10) + "...";
+            centeredString = x + (w / 2) - (RenderUtil.getStringWidth(shortenedName) / 2);
+            RenderUtil.drawString(graphics, shortenedName, centeredString, y + 5);
+        } else {
+            RenderUtil.drawString(graphics, module.getName(), centeredString, y + 5);
+        }
+    }
+    private static final Map<ModuleMain.Categories, Integer> moduleHeightCalcHelper() {
+       Map<ModuleMain.Categories, Integer> moduleHeight = new HashMap<>();
+        for(ModuleMain.Categories category : ModuleMain.Categories.values()) {
+            moduleHeight.put(category, startY);
+        }
+        return moduleHeight;
+    }
+    private static final Map<ModuleMain.Categories, Integer> xPositionCalcHelper() {
         Map<ModuleMain.Categories, Integer> categoryX = new HashMap<>();
         int baseX = startX;
         for (ModuleMain.Categories cat : ModuleMain.Categories.values()) {
@@ -28,30 +62,6 @@ public class ModulePanel {
             categoryX.put(cat, baseX);
             baseX += width + spacing + 50;
         }
-        Map<ModuleMain.Categories, Integer> moduleHeight = new HashMap<>();
-        for(ModuleMain.Categories category : ModuleMain.Categories.values()) {
-            moduleHeight.put(category, startY);
-        }
-        for (ModuleMain module : modules) {
-            ModuleMain.Categories cat = module.getCategory();
-            int x = categoryX.get(cat);
-            int w = categoryRectWidths.get(cat);
-            int h = categoryRectHeights.get(cat);
-            int y = moduleHeight.get(cat);
-
-            int centeredString = x + (w / 2) - (RenderUtil.getStringWidth(module.getName()) / 2);
-
-            RenderUtil.drawRect(graphics, x, y, w, h, 0xFF540d54);
-            // examplemodule
-            if(module.getName().length() >= 10) {
-                String shortenedName = module.getName().substring(0, 10) + "...";
-                centeredString = x + (w / 2) - (RenderUtil.getStringWidth(shortenedName) / 2);
-                RenderUtil.drawString(graphics, shortenedName, centeredString, y + 5);
-            } else {
-                RenderUtil.drawString(graphics, module.getName(), centeredString, y + 5);
-            }
-
-            moduleHeight.put(cat, y + h);
-        }
+        return categoryX;
     }
 }
